@@ -1,9 +1,23 @@
 let board = document.querySelector('.board');
 let gridSize = document.querySelector('#select');
 let color ='black';
+let click = false;
 
 document.addEventListener('DOMContentLoaded', () =>{
     createGrid(16);
+
+    document.querySelector('body').addEventListener('click', (e) =>{
+        if(e.target.tagName != 'BUTTON'){
+            click = !click;
+            console.log(click);
+            let draw = document.querySelector('#draw');
+            if (click){
+                draw.innerHTML = "You can start drawing";
+            }else{
+                draw.innerHTML = 'Youre not allowed to draw';
+            }
+        }
+    });
 
     gridSize.addEventListener('click', () =>{
         let sizes = getSize();
@@ -39,10 +53,12 @@ function getSize(){
 }
 
 function colorDiv(){
-    if(color == 'random'){
-        this.style.backgroundColor = `hsl(${Math.random() * 360}, 100% ,50%)`
-    } else{
-        this.style.backgroundColor ='black';
+    if(click){
+        if(color == 'random'){
+            this.style.backgroundColor = `hsl(${Math.random() * 360}, 100% ,50%)`
+        } else{
+            this.style.backgroundColor ='black';
+        }
     }
 }
 
